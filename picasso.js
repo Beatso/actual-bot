@@ -2,7 +2,7 @@
 This script is written by Beatso. It is originally from the discord bot Picasso which you can find here: https://github.com/Beatso/Picasso
 */
 
-const { client } = require('./index');
+const { client } = require('./index.');
 const { prefix } = require('./config.json');
 
 const Discord = require('discord.js');
