@@ -4,6 +4,8 @@ const client = new Discord.Client();
 const { prefix } = require('./config.json');
 const { name } = require('./package.json');
 
+module.exports.client = client
+
 // Command Handler
 const fs = require('fs');
 client.commands = new Discord.Collection();
