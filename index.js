@@ -31,7 +31,7 @@ client.on('message', (message) => {
 });
 
 // Picasso
-// require('./picasso.');
+require('./picasso.');
 
 // Always Last
 client.login(process.env.TOKEN);
