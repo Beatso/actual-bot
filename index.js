@@ -30,7 +30,7 @@ client.on('message', (message) => {
 		client.commands.get('ping').execute(message, args);
 	}
 });
-
+// coding in vr
 // Picasso
 require('./picasso.');
 
