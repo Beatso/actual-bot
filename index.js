@@ -3,6 +3,9 @@ require('dotenv').config();
 const client = new Discord.Client();
 const { prefix } = require('./config.json');
 const { name } = require('./package.json');
+const keepAlive = require('./server');
+
+module.exports.client = client
 
 // Command Handler
 const fs = require('fs');
@@ -27,9 +30,10 @@ client.on('message', (message) => {
 		client.commands.get('ping').execute(message, args);
 	}
 });
-
+// coding in vr
 // Picasso
-// require('./picasso.');
+require('./picasso.');
 
+keepAlive();
 // Always Last
 client.login(process.env.TOKEN);
