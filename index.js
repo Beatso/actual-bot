@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 require('dotenv').config();
 const client = new Discord.Client();
-const { prefix, chromusID, welcomeChannel, chromusRoleID } = require('./config.json');
+const { prefix, chromusID, welcomeChannel, chromusRoleID, botCommandsChannel } = require('./config.json');
 const { name } = require('./package.json');
 const keepAlive = require('./server');
 
@@ -9,6 +9,7 @@ module.exports.client = client;
 
 // Command Handler
 const fs = require('fs');
+const mcign = require('./commands/mcign');
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
 
@@ -22,11 +23,12 @@ client.once('ready', () => {
 	client.user.setActivity('you fail', { type: 'WATCHING' }); // Status
 });
 
+// base welcome message
 client.on('guildMemberAdd', (member) => client.channels.cache.get(welcomeChannel).send(`henlo <@${member.id}>`));
-client.on('guildMemberRemove', (member) =>
-	// Leave Message
-	// client.channels.cache.get(welcomeChannel).send(`<@${member.id}> broken his monitor`)
-	console.log('someone left the server')
+// mc username nick
+client.on('guildMemberAdd', (member) =>
+	// client.channels.cache.get(botCommandsChannel).send(`<@${member.id}> What is your Minecraft IGN?`)
+	client.channels.cache.get(botCommandsChannel).then(client.commands.get('mcign').execute(message, args))
 );
 
 // Commands

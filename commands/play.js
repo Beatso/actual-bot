@@ -11,7 +11,7 @@ module.exports = {
 		const permissions = voiceChannel.permissionsFor(message.client.user);
 		if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissins.');
 		if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissins.');
-		if (!args.length) return message.channel.send('You need to send a link to teh video you want to play.');
+		if (!args.length) return message.channel.send('You need to send a link to the video you want to play.');
 
 		const validURL = (str) => {
 			var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
