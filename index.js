@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 require('dotenv').config();
 const client = new Discord.Client();
-const { prefix } = require('./config.json');
+const { prefix, chromusID, welcomeChannel, chromusRoleID } = require('./config.json');
 const { name } = require('./package.json');
 const keepAlive = require('./server');
 
@@ -18,8 +18,12 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-	console.log('actual bot is online');
-	client.user.setActivity('h', { type: 'CUSTOM_STATUS' }); // Status
+	console.log('there is an actual bot online');
+	client.user.setActivity('you fail.', { type: 'WATCHING' }); // Status
+});
+
+client.on('guildMemberAdd', (guildMember) => {
+	guildMember.guild.channels.cache.get(welcomeChannel).send('henlo <@${guildMember.user.id}>');
 });
 
 // Commands
