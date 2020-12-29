@@ -22,7 +22,7 @@ client.once('ready', () => {
 	client.user.setActivity('you fail.', { type: 'WATCHING' }); // Status
 });
 
-client.on('guildMemberAdd', (guildMember) => {
+client.on('guildMemberAdd', guildMember => {
 	guildMember.guild.channels.cache.get(welcomeChannel).send('henlo <@${guildMember.user.id}>');
 });
 
