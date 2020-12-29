@@ -19,12 +19,15 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
 	console.log('there is an actual bot online');
-	client.user.setActivity('you fail.', { type: 'WATCHING' }); // Status
+	client.user.setActivity('you fail', { type: 'WATCHING' }); // Status
 });
 
-client.on('guildMemberAdd', guildMember => {
-	guildMember.guild.channels.cache.get(welcomeChannel).send('henlo <@${guildMember.user.id}>');
-});
+client.on('guildMemberAdd', (member) => client.channels.cache.get(welcomeChannel).send(`henlo <@${member.id}>`));
+client.on('guildMemberRemove', (member) =>
+	// Leave Message
+	// client.channels.cache.get(welcomeChannel).send(`<@${member.id}> broken his monitor`)
+	console.log('someone left the server')
+);
 
 // Commands
 client.on('message', (message) => {
