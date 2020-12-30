@@ -52,24 +52,27 @@ client.on('message', (message) => {
 // mc username nick
 client.on('guildMemberAdd', (member) => {
 	let filter = (message) => message.author.id === member.id;
-	client.channels.cache.get('793300258767503380').send(`What is your Minecraft username?`).then(() => {
-		client.channels.cache
-			.get('793300258767503380')
-			.awaitMessages(filter, {
-				max: 1,
-				time: 30000,
-				errors: [ 'time' ]
-			})
-			.then((message) => {
-				message = message.first();
-				client.channels.cache.get('793300258767503380').send('Minecraft IGN has been set.');
-				member.setNickname(member.user.username + ' [' + message.content + ']');
-			})
-			.catch((collected) => {
-				client.channels.cache.get('793300258767503380').send('Timeout');
-				console.error(collected);
-			});
-	});
+	client.channels.cache
+		.get('793300258767503380')
+		.send(`<@` + member + `>, What is your Minecraft username?`)
+		.then(() => {
+			client.channels.cache
+				.get('793300258767503380')
+				.awaitMessages(filter, {
+					max: 1,
+					time: 30000,
+					errors: [ 'time' ]
+				})
+				.then((message) => {
+					message = message.first();
+					client.channels.cache.get('793300258767503380').send('Minecraft IGN has been set.');
+					member.setNickname(member.user.username + ' [' + message.content + ']');
+				})
+				.catch((collected) => {
+					client.channels.cache.get('793300258767503380').send('Timeout');
+					console.error(collected);
+				});
+		});
 });
 
 // Picasso
