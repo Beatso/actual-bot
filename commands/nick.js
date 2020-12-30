@@ -1,12 +1,12 @@
 module.exports = {
 	name: 'nick',
-	description: "Changes the user's nick to the Minecraft IGN",
+	description: "Changes the user's nickname",
 	execute(message, args) {
 		const target = message.mentions.users.first();
 		const member = message.guild.members.cache.get(target.id);
 		args.shift();
 		const nickname = args.join(' ');
 		member.setNickname(nickname);
-		message.reply('You have set your Minecraft IGN.');
+		message.channel.send('<@' + member + '>, <@' + message.author.id + '> nickname has been set to ' + nickname);
 	}
 };

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 require('dotenv').config();
-const client = new Discord.Client();
+const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const { prefix, chromusID, welcomeChannel, chromusRoleID, botCommandsChannel } = require('./config.json');
 const { name } = require('./package.json');
 const keepAlive = require('./server');
@@ -9,7 +9,6 @@ module.exports.client = client;
 
 // Command Handler
 const fs = require('fs');
-const mcign = require('./commands/mcign');
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));
 
@@ -24,12 +23,10 @@ client.once('ready', () => {
 });
 
 // base welcome message
-client.on('guildMemberAdd', (member) => client.channels.cache.get(welcomeChannel).send(`henlo <@${member.id}>`));
-// mc username nick
-client.on('guildMemberAdd', (member) =>
-	// client.channels.cache.get(botCommandsChannel).send(`<@${member.id}> What is your Minecraft IGN?`)
-	client.channels.cache.get(botCommandsChannel).then(client.commands.get('mcign').execute(message, args))
-);
+client.on('guildMemberAdd', (member) => {
+	client.channels.cache.get(welcomeChannel).send(`henlo <@${member.id}>`);
+	console.log(`${member.user.username} joined`);
+});
 
 // Commands
 client.on('message', (message) => {
@@ -50,6 +47,29 @@ client.on('message', (message) => {
 		console.error(error);
 		message.reply('There was an error trying to execute that command!');
 	}
+});
+
+// mc username nick
+client.on('guildMemberAdd', (member) => {
+	let filter = (message) => message.author.id === member.id;
+	client.channels.cache.get('793300258767503380').send(`What is your Minecraft username?`).then(() => {
+		client.channels.cache
+			.get('793300258767503380')
+			.awaitMessages(filter, {
+				max: 1,
+				time: 30000,
+				errors: [ 'time' ]
+			})
+			.then((message) => {
+				message = message.first();
+				client.channels.cache.get('793300258767503380').send('Minecraft IGN has been set.');
+				member.setNickname(member.user.username + ' [' + message.content + ']');
+			})
+			.catch((collected) => {
+				client.channels.cache.get('793300258767503380').send('Timeout');
+				console.error(collected);
+			});
+	});
 });
 
 // Picasso
