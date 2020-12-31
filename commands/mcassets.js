@@ -1,11 +1,8 @@
 module.exports = {
-	name: 'assets',
-	aliases: [ 'getassets', 'vanillassets', 'defaultassets' ],
+	name: 'mcassets',
 	description: 'Get a link to the default Minecraft assets for a particular version.',
-	usage: '[version]',
-	availableTo: '@everyone',
 	execute(message, args) {
-		if (!args[0]) 'You need to provide a version!';
+		if (args[1] == undefined) 'You need to provide a version!';
 		message.channel.send(
 			`Browse the assets for version ${args[0]}: <https://github.com/InventivetalentDev/minecraft-assets/tree/${encodeURI(
 				args[0]
