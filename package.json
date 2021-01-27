@@ -26,6 +26,6 @@
     "request": "^2.88.2",
     "scale-pixel-art": "^1.0.0",
     "yt-search": "^2.5.2",
-    "ytdl-core": "^4.4.4"
+    "ytdl-core": "^4.4.5"
   }
 }
