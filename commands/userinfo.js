@@ -4,12 +4,8 @@ const { client } = require('../index.js');
 module.exports = {
 	name: 'userinfo',
 	aliases: [ 'about', 'user', 'profile' ],
-	usage: '<user>',
 	description: 'Gets info about a particular user.',
-	availableTo: '@everyone',
-	parameters:
-		'**User**: *optional* the id or @mention of the user you want info about. Defaults to the author if unspecified.',
-	execute(message, args) {
+	execute(client, message, args, Discord) {
 		if (!args[0]) id = message.author.id;
 		else if (args[0].startsWith('<@') && args[0].endsWith('>')) id = args[0].substring(3, 21);
 		else if (args[0].startsWith('<@!') && args[0].endsWith('>')) id = args[0].substring(4, 21);

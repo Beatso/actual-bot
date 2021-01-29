@@ -5,7 +5,7 @@ const { ReactionUserManager } = require('discord.js');
 module.exports = {
 	name: 'mute',
 	description: 'Mutes a user',
-	execute(message, args) {
+	execute(client, message, args, Discord) {
 		const target = message.mentions.users.first();
 		if (target) {
 			let mainRole = memberRole;

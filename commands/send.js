@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'send',
 	description: 'Sends something',
-	execute(message, args) {
+	execute(client, message, args, Discord) {
 		message.channel.send(args);
 	}
 };

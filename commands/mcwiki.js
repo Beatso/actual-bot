@@ -3,7 +3,7 @@ const { prefix, color } = require('../config.json');
 module.exports = {
 	name: 'mcwiki',
 	cooldown: 5,
-	execute(message, args) {
+	execute(client, message, args, Discord) {
 		if (args.length != 0)
 			var embed = {
 				title: 'Search Minecraft Wiki',

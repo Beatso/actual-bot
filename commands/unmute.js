@@ -3,7 +3,7 @@ const { memberRole, mutedRole } = require('../config.json');
 module.exports = {
 	name: 'unmute',
 	description: 'Unmutes a user',
-	execute(message, args) {
+	execute(client, message, args, Discord) {
 		const target = message.mentions.users.first();
 		if (target) {
 			let mainRole = memberRole;

@@ -3,7 +3,6 @@ require('dotenv').config();
 const fs = require('fs');
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const { prefix, chromusID, welcomeChannel, chromusRoleID, botCommandsChannel } = require('./config.json');
-const { name } = require('./package.json');
 const keepAlive = require('./server');
 
 module.exports.client = client;
@@ -13,6 +12,10 @@ client.events = new Discord.Collection();
 
 [ 'commandHandler', 'eventHandler' ].forEach((handler) => {
 	require(`./handlers/${handler}`)(client, Discord);
+});
+
+client.once('ready', () => {
+	client.user.setActivity('you fail', { type: 'WATCHING' }); // Status
 });
 
 // const commandFiles = fs.readdirSync('./commands').filter((file) => file.endsWith('.js'));

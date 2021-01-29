@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'nick',
 	description: "Changes the user's nickname",
-	execute(message, args) {
+	execute(client, message, args, Discord) {
 		const target = message.mentions.users.first();
 		const member = message.guild.members.cache.get(target.id);
 		args.shift();

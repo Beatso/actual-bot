@@ -4,14 +4,14 @@ const ytSearch = require('yt-search');
 module.exports = {
 	name: 'play',
 	description: 'Joins and plays a video from youtube',
-	async execute(message, args) {
+	async execute(client, message, args, Discord) {
 		const voiceChannel = message.member.voice.channel;
 
-		if (!voiceChannel) return message.channel.send('You need to be in a vc to use this command.');
+		if (!voiceChannel) return message.reply('You need to be in a vc to use this command.');
 		const permissions = voiceChannel.permissionsFor(message.client.user);
-		if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissins.');
-		if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissins.');
-		if (!args.length) return message.channel.send('You need to send a link to the video you want to play.');
+		if (!permissions.has('CONNECT')) return message.reply('You dont have the correct permissins.');
+		if (!permissions.has('SPEAK')) return message.reply('You dont have the correct permissins.');
+		if (!args.length) return message.reply('You need to send a link to the video you want to play.');
 
 		const validURL = (str) => {
 			var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
@@ -31,7 +31,7 @@ module.exports = {
 				message.channel.send('Leaving VC');
 			});
 
-			await message.reply(`Now Playing: ***Your Link!***`);
+			await message.channel.send(`Now Playing: ***Your Link!***`);
 
 			return;
 		}
@@ -52,7 +52,7 @@ module.exports = {
 				voiceChannel.leave();
 			});
 
-			await message.reply(`Now Playing: ***${video.title}***`);
+			await message.channel.send(`Now Playing: ***${video.title}***`);
 		} else {
 			message.reply('No video results found.');
 		}
