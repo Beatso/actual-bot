@@ -1,5 +1,4 @@
 const { color } = require('../config.json');
-const { client } = require('../index.js');
 
 module.exports = {
 	name: 'userinfo',
@@ -19,6 +18,10 @@ module.exports = {
 
 		const responseEmbed = {
 			title: `User Info for ${user.tag}`,
+			author: {
+				icon_url: user.avatarURL(),
+				name: user.username
+			},
 			fields: [
 				{
 					name: 'Joined Discord',
