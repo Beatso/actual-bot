@@ -10,7 +10,9 @@ module.exports.client = client;
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
 
-[ 'commandHandler', 'eventHandler' ].forEach((handler) => {
+const handlers = [ 'commandHandler', 'eventHandler' ];
+
+handlers.forEach((handler) => {
 	require(`./handlers/${handler}`)(client, Discord);
 });
 
