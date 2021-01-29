@@ -31,7 +31,7 @@ module.exports = {
 				message.channel.send('Leaving VC');
 			});
 
-			await message.reply(`Now Playing ***Your Link!***`);
+			await message.reply(`Now Playing: ***Your Link!***`);
 
 			return;
 		}
@@ -52,7 +52,7 @@ module.exports = {
 				voiceChannel.leave();
 			});
 
-			await message.reply(`Now Playing ***${video.title}***`);
+			await message.reply(`Now Playing: ***${video.title}***`);
 		} else {
 			message.reply('No video results found.');
 		}
