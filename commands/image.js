@@ -9,6 +9,7 @@ const google = new Scraper({
 module.exports = {
 	name: 'image',
 	description: 'Sends an image',
+	aliases: [ 'pic', 'picture', 'img' ],
 	async execute(client, message, args) {
 		const imageQuery = args.join(' ');
 

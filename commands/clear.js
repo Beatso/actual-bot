@@ -3,6 +3,7 @@ const { chromusRoleID, chromusID } = require('../config.json');
 module.exports = {
 	name: 'clear',
 	description: 'Clears a listed amount of messages.',
+	aliaes: [ 'delete', 'purge' ],
 	async execute(client, message, args, Discord) {
 		if (!message.member.roles.cache.some((role) => role.id == chromusRoleID))
 			return message.reply('Only <@' + chromusID + '> has the power to do that.');
