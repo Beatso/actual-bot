@@ -4,6 +4,7 @@ const { color } = require('../config.json');
 module.exports = {
 	name: 'mcuser',
 	description: 'Gets info about a Minecraft user',
+	usage: `mcuser <username>`,
 	execute(client, message, args, Discord) {
 		if (!args[0]) return message.reply('You must specify a Minecraft username.');
 

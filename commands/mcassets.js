@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'mcassets',
 	description: 'Get a link to the default Minecraft assets for a particular version.',
+	usage: `mcassets <version>`,
 	execute(client, message, args, Discord) {
 		if (args[1] == undefined) 'You need to provide a version!';
 		message.channel.send(

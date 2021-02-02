@@ -4,6 +4,7 @@ const { color } = require('../config.json');
 module.exports = {
 	name: 'mcserver',
 	description: 'Gets the status of a minecraft server.',
+	usage: `mcserver <IP> [port]`,
 	execute(client, message, args, Discord) {
 		if (!args[0]) return message.reply('You must specify a Minecraft server ip.');
 		if (!args[1]) serverPort = '25565';

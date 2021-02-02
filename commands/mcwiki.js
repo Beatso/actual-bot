@@ -2,7 +2,8 @@ const { prefix, color } = require('../config.json');
 
 module.exports = {
 	name: 'mcwiki',
-	cooldown: 5,
+	description: 'Searches the Minecraft wiki',
+	usage: `mcwiki <keywords>`,
 	execute(client, message, args, Discord) {
 		if (args.length != 0)
 			var embed = {

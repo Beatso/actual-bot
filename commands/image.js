@@ -10,6 +10,7 @@ module.exports = {
 	name: 'image',
 	description: 'Sends an image',
 	aliases: [ 'pic', 'picture', 'img' ],
+	usage: `image <keywords>`,
 	async execute(client, message, args) {
 		const imageQuery = args.join(' ');
 
