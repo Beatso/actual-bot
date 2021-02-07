@@ -1,16 +1,16 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
-var { getData, getPreview } = require("spotify-url-info");
-
+var { getData, getPreview } = require('spotify-url-info');
 
 var parsed, uri;
 
 const queue = new Map();
+var songsInQueue = [];
 
 module.exports = {
 	name: 'play',
 	description: 'Joins and plays a video from youtube',
-	aliases: [ 'skip', 'stop', 'p', 'leave', 'l' ],
+	aliases: [ 'skip', 'stop', 'p', 'leave', 'l', 'q', 'queue', 'que', 'playing', 'np', 'now' ],
 	// usage: `play <keywords>`,
 	async execute(client, message, args, Discord, cmd) {
 		const voiceChannel = message.member.voice.channel;
@@ -69,6 +69,8 @@ module.exports = {
 				queue.set(message.guild.id, queueConstructor);
 				queueConstructor.songs.push(song);
 
+				songsInQueue = queueConstructor.songs;
+
 				try {
 					const connection = await voiceChannel.join();
 					queueConstructor.connection = connection;
@@ -80,10 +82,18 @@ module.exports = {
 				}
 			} else {
 				serverQueue.songs.push(song);
-				return message.channel.send(`**${song.title}** has been added to the queue.`);
+				return message.channel.send(
+					`**${song.title}** has been added to the queue. Position in queue: **${serverQueue.songs.indexOf(
+						song
+					) + 1}**`
+				);
 			}
 		} else if (cmd === 'skip') skipSong(message, serverQueue);
 		else if (cmd === 'stop' || cmd === 'leave' || cmd === 'l') stopSong(message, serverQueue);
+		else if (cmd === 'queue' || cmd === 'q' || cmd === 'que') {
+			message.channel.send(`Song Queue: ${songsInQueue.join(', ')}`);
+		} else if (cmd === 'np' || cmd === 'playing' || cmd === 'now')
+			message.channel.send(`Now Playing: **${songsInQueue[0].title}**`);
 	}
 };
 
