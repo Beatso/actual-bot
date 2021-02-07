@@ -1,5 +1,7 @@
 const fs = require('fs');
-const { prefix } = require('../config.json');
+const message = require('../events/guild/message');
+const prefixes = require('../prefixes.json');
+const { defualtPrefix } = require('../config.json');
 
 const commandFiles = fs.readdirSync('./commands/').filter((file) => file.endsWith('.js'));
 
@@ -7,12 +9,14 @@ module.exports = {
 	name: 'help',
 	description: 'This command',
 	aliaes: [ 'commands', 'cmd', 'cmds', 'command' ],
-	execute(client, message, args, Discord) {
+	execute(client, message, args, Discord, cmd) {
+		// let prefix = prefixes[message.guild.id];
+		const prefix = defualtPrefix;
 		var cmdList = [];
 
 		for (const file of commandFiles) {
 			const command = require(`../commands/${file}`);
-			if (command.name && command.description && command.usage && command.name != 'template') {
+			if (command.name && command.description && command.usage) {
 				cmdList.push(command.name);
 				cmdList.push(command.description);
 				cmdList.push(prefix + command.usage);

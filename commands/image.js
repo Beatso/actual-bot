@@ -11,7 +11,7 @@ module.exports = {
 	description: 'Sends an image',
 	aliases: [ 'pic', 'picture', 'img' ],
 	usage: `image <keywords>`,
-	async execute(client, message, args) {
+	async execute(client, message, args, cmd) {
 		const imageQuery = args.join(' ');
 
 		if (!imageQuery) return message.reply('You must specify search keywords.');

@@ -4,7 +4,7 @@ module.exports = {
 	name: 'mcwiki',
 	description: 'Searches the Minecraft wiki',
 	usage: `mcwiki <keywords>`,
-	execute(client, message, args, Discord) {
+	execute(client, message, args, Discord, cmd) {
 		if (args.length != 0)
 			var embed = {
 				title: 'Search Minecraft Wiki',

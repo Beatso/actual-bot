@@ -6,7 +6,7 @@ module.exports = {
 	name: 'mute',
 	description: 'Mutes a user',
 	usage: `mute <user> [duration]`,
-	execute(client, message, args, Discord) {
+	execute(client, message, args, Discord, cmd) {
 		const target = message.mentions.users.first();
 		if (target) {
 			let mainRole = memberRole;

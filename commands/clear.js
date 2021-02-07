@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Clears a listed amount of messages.',
 	aliaes: [ 'delete', 'purge' ],
 	usage: `clear <amount>`,
-	async execute(client, message, args, Discord) {
+	async execute(client, message, args, Discord, cmd) {
 		if (!message.member.roles.cache.some((role) => role.id == chromusRoleID))
 			return message.reply('Only <@' + chromusID + '> has the power to do that.');
 		if (!args[0]) return message.reply('You must specify an amount of messages to clear.');

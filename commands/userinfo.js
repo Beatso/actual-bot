@@ -5,7 +5,7 @@ module.exports = {
 	aliases: [ 'about', 'user', 'profile' ],
 	description: 'Gets info about a particular user.',
 	usage: `userinfo <user>`,
-	execute(client, message, args, Discord) {
+	execute(client, message, args, Discord, cmd) {
 		if (!args[0]) id = message.author.id;
 		else if (args[0].startsWith('<@') && args[0].endsWith('>')) id = args[0].substring(3, 21);
 		else if (args[0].startsWith('<@!') && args[0].endsWith('>')) id = args[0].substring(4, 21);
