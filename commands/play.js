@@ -1,6 +1,7 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
-const spotifyUri = require('spotify-uri')
+var { getData, getPreview } = require("spotify-url-info");
+
 
 var parsed, uri;
 
@@ -13,7 +14,7 @@ module.exports = {
 	// usage: `play <keywords>`,
 	async execute(client, message, args, Discord, cmd) {
 		const voiceChannel = message.member.voice.channel;
-		if (!voiceChannel) return message.reply('You need to be in a vc to use this command.');
+		if (!voiceChannel) return message.reply('You need to be in a voice channel to use this command.');
 
 		const permissions = voiceChannel.permissionsFor(message.client.user);
 		if (!permissions.has('CONNECT') || !permissions.has('SPEAK'))
@@ -28,6 +29,21 @@ module.exports = {
 			if (ytdl.validateURL(args[0])) {
 				const songInfo = await ytdl.getInfo(args[0]);
 				song = { title: songInfo.videoDetails.title, url: songInfo.videoDetails.video_url };
+			} else if (args[0].includes('spotify')) {
+				const spotifyTrackInfo = await getPreview(args[0]);
+
+				const videoFinder = async (query) => {
+					const videoResult = await ytSearch(query);
+					return videoResult.videos.length > 1 ? videoResult.videos[0] : null;
+				};
+
+				const video = await videoFinder(`${spotifyTrackInfo.title} ${spotifyTrackInfo.artist}`);
+
+				if (video) {
+					song = { title: video.title, url: video.url };
+				} else {
+					message.reply('Error finding song.');
+				}
 			} else {
 				const videoFinder = async (query) => {
 					const videoResult = await ytSearch(query);
@@ -38,7 +54,7 @@ module.exports = {
 				if (video) {
 					song = { title: video.title, url: video.url };
 				} else {
-					message.reply('Error finding video.');
+					message.reply('Error finding song.');
 				}
 			}
 
