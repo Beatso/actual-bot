@@ -10,7 +10,7 @@ const queue = new Map();
 module.exports = {
 	name: 'play',
 	description: 'Joins and plays a video from youtube',
-	aliases: [ 'skip', 'stop' ],
+	aliases: [ 'skip', 'stop', 'p', 'leave', 'l' ],
 	// usage: `play <keywords>`,
 	async execute(client, message, args, Discord, cmd) {
 		const voiceChannel = message.member.voice.channel;
@@ -22,7 +22,7 @@ module.exports = {
 
 		const serverQueue = queue.get(message.guild.id);
 
-		if (cmd === 'play') {
+		if (cmd === 'play' || cmd === 'p') {
 			if (!args.length) return message.reply('You need to specify what song you want to play.');
 			let song = {};
 
@@ -83,7 +83,7 @@ module.exports = {
 				return message.channel.send(`**${song.title}** has been added to the queue.`);
 			}
 		} else if (cmd === 'skip') skipSong(message, serverQueue);
-		else if (cmd === 'stop') stopSong(message, serverQueue);
+		else if (cmd === 'stop' || cmd === 'leave' || cmd === 'l') stopSong(message, serverQueue);
 	}
 };
 
