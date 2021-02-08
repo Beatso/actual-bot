@@ -18,43 +18,52 @@ handlers.forEach((handler) => {
 client.once('ready', () => {
 	client.user.setActivity('you fail', { type: 'WATCHING' }); // Activity
 
-	var totalServedMembers = 0;
-
-	client.guilds.cache.forEach((guild) => {
-		totalServedMembers = totalServedMembers + guild.memberCount;
-	});
-
 	console.log('╠══════════════════════════════════ [  Login  ] ═════════════════════════════════════╣');
 	console.log(`║ > Logged in as ${client.user.tag}!                                                    ║`);
-	console.log(`║ > Current ID ${client.user.id}!                                                              ║`);
+	console.log(`║ > Current ID ${client.user.id}!                                                   ║`);
 	console.log('╠══════════════════════════════════ [  Amount  ] ════════════════════════════════════╣');
 	console.log(
 		`║ > Active in ${client.guilds.cache
 			.size} servers!                                                             ║`
 	);
-	console.log(
-		`║ > Serving ${totalServedMembers.toString()} users!                                                               ║`
-	);
-	console.log('╠══════════════════════════════════ [  Servers  ] ═══════════════════════════════════╣');
-	let content = '';
-	let s = '';
-	client.guilds.cache.forEach((guild) => {
-		let spaces = 85 - `║ > ${guild.name} member's ${guild.memberCount}`.length;
-		s += 1;
-		if (s > Number(client.guilds.cache.size) - 2) {
-			content += `\n║`;
-		} else {
-			content += '║';
-		}
-		content += ` > ${guild.name} member's ${guild.memberCount}`;
 
-		for (i = 0; i < spaces; i++) {
-			content += ' ';
-		}
-		content += '║';
+	var totalServedMembers = 0;
+	var serveMemberText = '';
+	var servers = true; // show servers that the bot is in
+
+	client.guilds.cache.forEach((guild) => {
+		totalServedMembers += guild.memberCount;
 	});
-	console.log(content);
-	console.log('╚════════════════════════════════════════════════════════════════════════════════════╝	');
+	serveMemberText += `║ > Serving ${totalServedMembers} users!`;
+	let spaces = 85 - serveMemberText.length;
+	for (i = 0; i < spaces; i++) {
+		serveMemberText += ' ';
+	}
+	serveMemberText += '║';
+
+	console.log(serveMemberText);
+	if (servers) {
+		console.log('╠══════════════════════════════════ [  Servers  ] ═══════════════════════════════════╣');
+		let content = '';
+		let s = '';
+		client.guilds.cache.forEach((guild) => {
+			let spaces = 85 - `║ > ${guild.name} member's ${guild.memberCount}`.length;
+			s += 1;
+			if (s > Number(client.guilds.cache.size) - 2) {
+				content += `\n║`;
+			} else {
+				content += '║';
+			}
+			content += ` > ${guild.name} member's ${guild.memberCount}`;
+
+			for (i = 0; i < spaces; i++) {
+				content += ' ';
+			}
+			content += '║';
+		});
+		console.log(content);
+		console.log('╚════════════════════════════════════════════════════════════════════════════════════╝	');
+	} else console.log('╚════════════════════════════════════════════════════════════════════════════════════╝	');
 });
 
 keepAlive();
