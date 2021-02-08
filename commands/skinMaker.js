@@ -4,9 +4,8 @@ const decode = require('./base64');
 const encode = require('./base64');
 
 module.exports = {
-	name: 'mcuser',
-	description: 'Gets information about a minecraft user',
-	usage: `mcuser <username>`,
+	name: 'skinMaker',
+	description: 'Makes Skin Image',
 	execute(client, message, args, Discord, cmd) {
 		if (
 			fetch('https://api.github.com/users/github')
