@@ -18,12 +18,21 @@ handlers.forEach((handler) => {
 client.once('ready', () => {
 	client.user.setActivity('you fail', { type: 'WATCHING' }); // Activity
 
+	var totalServedMembers;
+
+	client.guilds.cache.forEach((guild) => {
+		totalServedMembers = totalServedMembers + guild.memberCount;
+	});
+
 	console.log('╠══════════════════════════════════ [  Login  ] ═════════════════════════════════════╣');
 	console.log(`║ > Logged in as ${client.user.tag}!                                                    ║`);
 	console.log('╠══════════════════════════════════ [  Amount  ] ════════════════════════════════════╣');
 	console.log(
 		`║ > Active in ${client.guilds.cache
 			.size} servers!                                                             ║`
+	);
+	console.log(
+		`║ > Serving ${totalServedMembers} users!                                                               ║`
 	);
 	console.log('╠══════════════════════════════════ [  Servers  ] ═══════════════════════════════════╣');
 	let content = '';
