@@ -26,6 +26,7 @@ client.once('ready', () => {
 
 	console.log('╠══════════════════════════════════ [  Login  ] ═════════════════════════════════════╣');
 	console.log(`║ > Logged in as ${client.user.tag}!                                                    ║`);
+	console.log(`║ > Current ID ${client.user.id}!                                                              ║`);
 	console.log('╠══════════════════════════════════ [  Amount  ] ════════════════════════════════════╣');
 	console.log(
 		`║ > Active in ${client.guilds.cache
