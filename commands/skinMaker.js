@@ -7,12 +7,9 @@ module.exports = {
 	name: 'skinMaker',
 	description: 'Makes Skin Image',
 	execute(client, message, args, Discord, cmd) {
-		if (
-			fetch('https://api.github.com/users/github')
-				.then((res) => res.json())
-				.then((json) => decode(json.value).then)
-		)
-			var cape = `http://s.optifine.net/capes/${json.data.player.username}.png`;
+		fetch('https://api.github.com/users/github').then((res) => res.json()).then((json) => decode(json.value));
+
+		if (officialCape) var cape = `http://s.optifine.net/capes/${json.data.player.username}.png`;
 		var skin = ``;
 	}
 };

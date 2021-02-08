@@ -18,7 +18,7 @@ handlers.forEach((handler) => {
 client.once('ready', () => {
 	client.user.setActivity('you fail', { type: 'WATCHING' }); // Activity
 
-	var totalServedMembers;
+	var totalServedMembers = 0;
 
 	client.guilds.cache.forEach((guild) => {
 		totalServedMembers = totalServedMembers + guild.memberCount;
@@ -33,7 +33,7 @@ client.once('ready', () => {
 			.size} servers!                                                             ║`
 	);
 	console.log(
-		`║ > Serving ${totalServedMembers} users!                                                               ║`
+		`║ > Serving ${totalServedMembers.toString()} users!                                                               ║`
 	);
 	console.log('╠══════════════════════════════════ [  Servers  ] ═══════════════════════════════════╣');
 	let content = '';
