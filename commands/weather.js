@@ -4,6 +4,13 @@ module.exports = {
 	name: 'weather',
 	aliases: [ 'wthr' ],
 	async execute(client, message, args, Discord, cmd) {
+		function toCelcius(degrees) {
+			return Math.round((degrees - 32) * 5 / 9);
+		}
+		function toFarenheit(degrees) {
+			return Math.round(degrees * 5 / 9 + 32);
+		}
+
 		weather.find({ search: args.join(' '), degreeType: 'F' }, function(error, result) {
 			if (!args[0]) return message.reply('Please specify a location.');
 
@@ -17,10 +24,9 @@ module.exports = {
 				.setAuthor(`Weather forecast for ${current.observationpoint}`)
 				.setColor('#7289da')
 				.addField('Timezone', `UTC${location.timezone}`, true)
-				.addField('Degree Type', 'Fahrenheit', true)
-				.addField('Temperature', `${current.temperature}°`, true)
+				.addField('Temperature', `${current.temperature}°F | ${toCelcius(current.temperature)}°C`, true)
 				.addField('Wind', current.winddisplay, true)
-				.addField('Feels like', `${current.feelslike}°`, true)
+				.addField('Feels like', `${current.feelslike}°F | ${toCelcius(current.feelslike)}°C`, true)
 				.addField('Humidity', `${current.humidity}%`, true);
 
 			message.channel.send(weatherinfo);
