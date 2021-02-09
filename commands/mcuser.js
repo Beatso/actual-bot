@@ -4,7 +4,7 @@ const decode = require('./base64');
 const encode = require('./base64');
 
 module.exports = {
-	name: 'makeskin',
+	name: 'mcuser',
 	description: 'Gets information about a minecraft user',
 	execute(client, message, args, Discord, cmd) {
 		if (!args[0]) return message.reply('You must specify a minecraft username!');
