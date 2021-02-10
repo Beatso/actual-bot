@@ -2,7 +2,8 @@ const { json } = require('express');
 const fetch = require('node-fetch');
 const decode = require('./base64');
 const encode = require('./base64');
-const canvas = require('canvas');
+const mergeImages = require('merge-images');
+const { Canvas, Image } = require('canvas');
 
 module.exports = {
 	name: 'skinMaker',
@@ -20,7 +21,7 @@ module.exports = {
 					// 	decodedTexture = decode(json.value),
 					// 	(if(decodedTexture) )
 					// },{
-					// 	if(officialCape) {cape = `http://s.optifine.net/capes/${json.data.player.username}.png`}
+					// 	if(!officialCape) {cape = `http://s.optifine.net/capes/${json.data.player.username}.png`}
 					// })
 
 					(decodedValue = decode(json.value)), console.log('h'), { if() {} }

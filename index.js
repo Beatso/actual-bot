@@ -49,7 +49,7 @@ client.once('ready', () => {
 		client.guilds.cache.forEach((guild) => {
 			let spaces = 85 - `║ > ${guild.name} member's ${guild.memberCount}`.length;
 			s += 1;
-			if (s > Number(client.guilds.cache.size) - 2) {
+			if (s > Number(client.guilds.cache.size) - 1) {
 				content += `\n║`;
 			} else {
 				content += '║';

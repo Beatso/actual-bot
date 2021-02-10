@@ -5,27 +5,47 @@ module.exports = {
 	description: 'Encodes and Decodes base64',
 	usage: `base64 <encode/decode> <text>`,
 	execute(client, message, args, Discord, cmd) {
-		if (!args[0] || !args[0] == 'encode' || !args[0] == 'decode')
+		// if (!args[0]) return message.reply('You must specify encoding or decoding.');
+		if (!(args[0] == 'encode' || args[0] == 'decode'))
 			return message.reply('You must specify encoding or decoding.');
 		if (!args[1]) return message.reply(`You must specify text to ${args[0]}.`);
 
 		var text = args.toString().substring(args[0].length + 1);
 
-		function encode(data) {
-			let buff = new Buffer(data);
+		function encode(text) {
+			let buff = new Buffer.from(text);
 			let base64data = buff.toString('base64');
-			return base64data;
+			let res = {
+				originalData: text,
+				buff: buff,
+				base64: base64data
+			};
+			return res;
 		}
-		function decode(data) {
-			let buff = new Buffer(data, 'base64');
+		function decode(text) {
+			let buff = new Buffer.from(text, 'base64');
 			let base64data = buff.toString('ascii');
-			return base64data;
+			let res = {
+				originalData: text,
+				buff: buff,
+				base64: base64data
+			};
+			return res;
 		}
 
-		if (args[0] == 'encode') {
-			return message.channel.send(encode(text));
-		} else {
-			return message.channel.send(decode(text));
+		try {
+			if (args[0] == 'encode') {
+				let res = encode(text);
+				message.channel.send(res.base64);
+			} else {
+				let res = decode(text);
+				message.channel.send(res.base64);
+				console.log(res.buff);
+				console.log(res.originalData);
+			}
+		} catch (err) {
+			message.reply(`There was an error ${args[0].substring(0, args[0].length - 1)}ing that.`);
+			console.log(err);
 		}
 	}
 };
