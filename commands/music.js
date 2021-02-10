@@ -1,6 +1,7 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 var { getData, getPreview } = require('spotify-url-info');
+const { indexOf } = require('ffmpeg-static');
 
 var parsed, uri;
 
@@ -69,7 +70,12 @@ module.exports = {
 				queue.set(message.guild.id, queueConstructor);
 				queueConstructor.songs.push(song);
 
-				songsInQueue = queueConstructor.songs;
+				songqueueconstructor = queueConstructor.songs;
+				songqueueconstructor.forEach((element) => {
+					if (songsInQueue.indexOf(element.title)) {
+						songsInQueue.push(element.title);
+					}
+				});
 
 				try {
 					const connection = await voiceChannel.join();
@@ -82,6 +88,14 @@ module.exports = {
 				}
 			} else {
 				serverQueue.songs.push(song);
+
+				songqueueconstructor = serverQueue.songs;
+				songqueueconstructor.forEach((element) => {
+					if (!songsInQueue.indexOf(element.title)) {
+						songsInQueue.push(element.title);
+					}
+				});
+
 				return message.channel.send(
 					`**${song.title}** has been added to the queue. Position in queue: **${serverQueue.songs.indexOf(
 						song
@@ -91,9 +105,17 @@ module.exports = {
 		} else if (cmd === 'skip') skipSong(message, serverQueue);
 		else if (cmd === 'stop' || cmd === 'leave' || cmd === 'l') stopSong(message, serverQueue);
 		else if (cmd === 'queue' || cmd === 'q' || cmd === 'que') {
-			message.channel.send(`Song Queue: ${songsInQueue.join(', ')}`);
-		} else if (cmd === 'np' || cmd === 'playing' || cmd === 'now')
-			message.channel.send(`Now Playing: **${songsInQueue[0].title}**`);
+			if (songsInQueue.length >= 1) {
+				message.channel.send(`Song Queue: ${songsInQueue.join(', ')}`);
+			} else {
+				message.channel.send('There are no songs in the queue.');
+			}
+		} else if (
+			cmd === 'np' ||
+			cmd === 'playing' ||
+			cmd === 'now' // console.log(serverQueue);
+		)
+			message.channel.send(`Now Playing: **${serverQueue.songs[0].title}**`);
 	}
 };
 
