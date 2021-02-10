@@ -110,11 +110,7 @@ module.exports = {
 			} else {
 				message.channel.send('There are no songs in the queue.');
 			}
-		} else if (
-			cmd === 'np' ||
-			cmd === 'playing' ||
-			cmd === 'now' // console.log(serverQueue);
-		)
+		} else if (cmd === 'np' || cmd === 'playing' || cmd === 'now')
 			message.channel.send(`Now Playing: **${serverQueue.songs[0].title}**`);
 	}
 };
