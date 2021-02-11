@@ -1,8 +1,11 @@
 const fs = require('fs');
 const { defualtPrefix } = require('../../config.json');
+const { prefixes } = require('../../commands/admin/set-prefix');
+
+var prefix;
 
 module.exports = (Discord, client, message) => {
-	const prefix = defualtPrefix;
+	prefix = defualtPrefix;
 
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 

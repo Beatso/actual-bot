@@ -112,6 +112,15 @@ module.exports = {
 			}
 		} else if (cmd === 'np' || cmd === 'playing' || cmd === 'now')
 			message.channel.send(`Now Playing: **${serverQueue.songs[0].title}**`);
+		else if (args[0] == 'pause') {
+			if (server_queue.connection.dispatcher.paused) return message.reply('The song is already paused.');
+			server_queue.connection.dispatcher.pause();
+			message.channel.send('Paused the song.');
+		} else if (args[0] == 'unpause') {
+			if (!server_queue.connection.dispatcher.paused) return message.reply("The song isn't paused.");
+			server_queue.connection.dispatcher.resume();
+			message.channel.send('Unpaused the song.');
+		}
 	}
 };
 
