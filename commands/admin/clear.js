@@ -1,4 +1,4 @@
-const { chromusRoleID, chromusID } = require('../config.json');
+const { chromusRoleID, chromusID } = require('../../config.json');
 
 module.exports = {
 	name: 'clear',

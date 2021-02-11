@@ -1,7 +1,7 @@
 const { json } = require('express');
 const fetch = require('node-fetch');
-const decode = require('./base64');
-const encode = require('./base64');
+const decode = require('../fun/base64');
+const encode = require('../fun/base64');
 const mergeImages = require('merge-images');
 const { Canvas, Image } = require('canvas');
 

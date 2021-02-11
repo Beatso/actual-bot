@@ -1,4 +1,4 @@
-const { memberRole, mutedRole } = require('../config.json');
+const { memberRole, mutedRole } = require('../../config.json');
 const ms = require('ms');
 const { ReactionUserManager } = require('discord.js');
 

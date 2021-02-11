@@ -1,5 +1,5 @@
 const util = require('minecraft-server-util');
-const { color } = require('../config.json');
+const { color } = require('../../config.json');
 
 module.exports = {
 	name: 'mcserver',

@@ -1,6 +1,6 @@
 const fs = require('fs');
-const message = require('../events/guild/message');
-const { defualtPrefix } = require('../config.json');
+const message = require('../../events/guild/message');
+const { defualtPrefix } = require('../../config.json');
 
 const commandFiles = fs.readdirSync('./commands/').filter((file) => file.endsWith('.js'));
 
