@@ -1,38 +1,108 @@
-const fs = require('fs');
-const message = require('../../events/guild/message');
 const { defualtPrefix } = require('../../config.json');
-
-const commandFiles = fs.readdirSync('./commands/').filter((file) => file.endsWith('.js'));
+const musicCMD = require('../misc/music');
+const musicCommands = {
+	play: [ '`p`', '`play`' ],
+	skip: [ '`skip`' ],
+	stop: [ '`stop`', '`leave`', '`l`' ],
+	queue: [ '`queue`', '`que`', '`q`' ],
+	nowPlaying: [ '`playing`', '`now`', '`np`' ],
+	pause: [ '`puase`' ],
+	unpause: [ '`unpuase`' ]
+};
 
 module.exports = {
 	name: 'help',
 	description: 'This command',
 	aliaes: [ 'commands', 'cmd', 'cmds', 'command' ],
 	execute(client, message, args, Discord, cmd) {
-		// let prefix = prefixes[message.guild.id];
-		const prefix = defualtPrefix;
-		var cmdList = [];
+		const { commands } = message.client;
 
-		for (const file of commandFiles) {
-			const command = require(`../commands/${file}`);
-			if (command.name && command.description && command.usage) {
-				cmdList.push(command.name);
-				cmdList.push(command.description);
-				cmdList.push(prefix + command.usage);
-			} else {
-				continue;
+		if (!args.length) {
+			let embed = new Discord.MessageEmbed();
+			let description = [];
+
+			embed.setTitle("Here's a list of all my commands:");
+
+			commands.map((command) => {
+				if (command.name != 'play') {
+					description.push(`\`${command.name}\``);
+				} else {
+				}
+			});
+
+			embed.setDescription(description.join(', '));
+			embed.setFooter(`Use ${defualtPrefix}help <command name> to get info on a specific command.`);
+			embed.setColor('#7289da');
+
+			return message.channel.send(embed).catch((error) => {
+				console.error(error);
+			});
+		} else if (musicCMD.aliases.includes(args[0])) {
+			const name = args[0].toLowerCase();
+			const musicEmbed = new Discord.MessageEmbed()
+				.setTitle('Command Info')
+				.setColor('#7289da')
+				.setFooter(`<required> [optional]`);
+			// Skip
+			if (musicCommands.skip.includes(name)) {
+				musicEmbed.addField('Name', '`' + name + '`');
+				musicEmbed.addField('Aliases', musicCommands.skip);
+				musicEmbed.addField('Description', 'Skips the current song.');
+				musicEmbed.addField('Usage', `${defualtPrefix}${args[0]}`);
+				// Stop
+			} else if (musicCommands.stop.includes(name)) {
+				musicEmbed.addField('Name', '`' + 'leave' + '`');
+				musicEmbed.addField('Aliases', musicCommands.stop);
+				musicEmbed.addFields('Description', 'Stops the music and leaves the voice channel.');
+				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
+				// Play
+			} else if (musicCommands.play.includes(name)) {
+				musicEmbed.addField('Name', '`' + 'play' + '`');
+				musicEmbed.addField('Aliases', musicCommands.play);
+				musicEmbed.addFields('Description', 'Joins the voice channel and plays a song.');
+				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]} <keywords>`);
+				musicEmbed.addFields('Required Permissions', 'CONNECT');
+				// Now Playing
+			} else if (musicCommands.nowPlaying.includes(name)) {
+				musicEmbed.addField('Name', '`' + 'playing' + '`');
+				musicEmbed.addField('Aliases', musicCommands.nowPlaying);
+				musicEmbed.addFields('Description', command.description);
+				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
+				// Queue
+			} else if (musicCommands.queue.includes(name)) {
+				musicEmbed.addField('Name', '`' + 'queue' + '`');
+				musicEmbed.addField('Aliases', musicCommands.queue);
+				musicEmbed.addFields('Description', 'Lists the current song queue.');
+				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
+				// Puase
+			} else if (musicCommands.pause.includes(name)) {
+				musicEmbed.addField('Name', '`' + 'puase' + '`');
+				musicEmbed.addField('Aliases', musicCommands.pause);
+				musicEmbed.addFields('Description', 'Puases the current song.');
+				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
+				// Unpuase
+			} else if (musicCommands.unpause.includes(name)) {
+				musicEmbed.addField('Name', '`' + 'unpuase' + '`');
+				musicEmbed.addField('Aliases', musicCommands.unpause);
+				musicEmbed.addFields('Description', 'Unpuases the current song.');
+				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
 			}
+			message.channel.send(musicEmbed);
+		} else {
+			const name = args[0].toLowerCase();
+			const command = commands.get(cmd) || commands.find((a) => a.aliases && a.aliases.includes(cmd));
+
+			if (!command) return message.reply("That's not a valid command!");
+
+			const responseEmbed = new Discord.MessageEmbed().setTitle('Command Info').setColor('#7289da');
+
+			responseEmbed.addField('Name', '`' + command.name + '`');
+			if (command.aliases) responseEmbed.addField('Aliases', '`' + command.aliases.join('`, `') + '`');
+			if (command.description) responseEmbed.addFields('Description', command.description);
+			if (command.usage) responseEmbed.addFields('Usage', `${defualtPrefix}${command.usage}`);
+			if (command.permissions) responseEmbed.addFields('Required Permissions', command.permissions);
+
+			message.channel.send(responseEmbed);
 		}
-
-		var responseEmbed = new Discord.MessageEmbed()
-			.setColor('#7289da')
-			.setTitle(`Commands`)
-			.setFooter('<required> [optional]');
-
-		for (var i = 0; i < cmdList.length; i = i + 3) {
-			responseEmbed.addField(cmdList[i], `${cmdList[i + 1]} \n \`${cmdList[i + 2]}\``, true);
-		}
-
-		message.channel.send(responseEmbed);
 	}
 };

@@ -3,6 +3,7 @@ require('dotenv').config();
 const fs = require('fs');
 const client = new Discord.Client({ ws: { intents: Discord.Intents.ALL } });
 const keepAlive = require('./server');
+const config = require('./config.json');
 
 module.exports.client = client;
 

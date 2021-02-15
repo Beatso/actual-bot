@@ -11,6 +11,7 @@ module.exports = (client, Discord) => {
 			const stat = fs.lstatSync(path.join(__dirname, dir, file));
 			if (stat.isDirectory()) {
 				cmdDirs.push(file);
+				// getDirs(path.join(__dirname, dir, file));
 			} else {
 				continue;
 			}

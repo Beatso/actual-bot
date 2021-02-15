@@ -1,17 +1,31 @@
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
-var { getData, getPreview } = require('spotify-url-info');
+var { getPreview } = require('spotify-url-info');
 const { indexOf } = require('ffmpeg-static');
-
-var parsed, uri;
 
 const queue = new Map();
 var songsInQueue = [];
 
 module.exports = {
 	name: 'play',
-	description: 'Joins and plays a video from youtube',
-	aliases: [ 'skip', 'stop', 'p', 'leave', 'l', 'q', 'queue', 'que', 'playing', 'np', 'now' ],
+	description: 'Joins and plays a song',
+	aliases: [
+		'skip',
+		'stop',
+		'leave',
+		'l',
+		'p',
+		'play',
+		'q',
+		'queue',
+		'que',
+		'playing',
+		'np',
+		'now',
+		'puase',
+		'unpuase'
+	],
+	permissions: [ 'CONNECT' ],
 	// usage: `play <keywords>`,
 	async execute(client, message, args, Discord, cmd) {
 		const voiceChannel = message.member.voice.channel;
@@ -112,11 +126,11 @@ module.exports = {
 			}
 		} else if (cmd === 'np' || cmd === 'playing' || cmd === 'now')
 			message.channel.send(`Now Playing: **${serverQueue.songs[0].title}**`);
-		else if (args[0] == 'pause') {
+		else if (cmd === 'pause') {
 			if (server_queue.connection.dispatcher.paused) return message.reply('The song is already paused.');
 			server_queue.connection.dispatcher.pause();
 			message.channel.send('Paused the song.');
-		} else if (args[0] == 'unpause') {
+		} else if (cmd === 'unpause') {
 			if (!server_queue.connection.dispatcher.paused) return message.reply("The song isn't paused.");
 			server_queue.connection.dispatcher.resume();
 			message.channel.send('Unpaused the song.');

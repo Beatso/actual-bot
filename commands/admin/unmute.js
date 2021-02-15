@@ -4,6 +4,7 @@ module.exports = {
 	name: 'unmute',
 	description: 'Unmutes a user',
 	usage: `unmute <user>`,
+	permissions: [ 'ADMINISTRATOR', 'MANAGE_MESSAGES' ],
 	execute(client, message, args, Discord, cmd) {
 		const target = message.mentions.users.first();
 		if (target) {
