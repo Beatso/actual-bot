@@ -22,11 +22,11 @@ module.exports = {
 				],
 				{
 					title: `Code by ${message.author.tag}`,
-					description: `Automagically uploaded by actual bot.`
+					description: `Automagically uploaded by actual bot`
 				}
 			)
 			.then((src) => {
-				message.channel.send(`You code has been uploaded to SourceBin: ${src.url}`);
+				message.channel.send(`You code has been automagically uploaded to SourceBin: ${src.url}`);
 			})
 			.catch((e) => {
 				message.reply(`There was an error uploading your code.`);

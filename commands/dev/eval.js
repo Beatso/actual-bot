@@ -5,6 +5,7 @@ module.exports = {
 	dev: true,
 	async execute(client, message, args, Discord, cmd) {
 		if (!message.author.id == '511758610720751626') return message.reply('This command is only for the developer.');
+		if (!args[0]) return message.reply('You must specify code to eval.');
 		var result = args.join(' ');
 		if (args.join(' ') == 'process.exit()') {
 			return message.reply('Access Denied.');

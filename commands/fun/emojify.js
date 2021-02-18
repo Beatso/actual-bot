@@ -22,12 +22,11 @@ const mapping = {
 
 module.exports = {
 	name: 'emojify',
-	aliases: [ 'emoji' ],
 	usage: 'emojify <text>',
-	description: 'Returns provided text in emojify (emotes) form.',
-	async execute(message, args, cmd) {
+	description: 'Returns provided text in emoji form.',
+	async execute(client, message, args, Discord, cmd) {
 		if (!args) {
-			message.reply('You must provide some text to emojify!');
+			message.reply('You must specify text to emojify.');
 		}
 		message.channel.send(args.join(' ').split('').map((c) => mapping[c] || c).join(''));
 	}

@@ -10,7 +10,7 @@ module.exports = {
 			return message.reply('You must specify encoding or decoding.');
 		if (!args[1]) return message.reply(`You must specify text to ${args[0]}.`);
 
-		var text = args.toString().substring(args[0].length + 1);
+		var text = args.join(' ').substring(args[0].length + 1);
 
 		function encode(text) {
 			let buff = new Buffer.from(text);

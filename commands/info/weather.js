@@ -2,7 +2,7 @@ const weather = require('weather-js');
 
 module.exports = {
 	name: 'weather',
-	aliases: [ 'wthr' ],
+	description: 'Sends weather info about a specified location',
 	async execute(client, message, args, Discord, cmd) {
 		function toCelcius(degrees) {
 			return Math.round((degrees - 32) * 5 / 9);
