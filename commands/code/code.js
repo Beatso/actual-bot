@@ -6,7 +6,7 @@ module.exports = {
 	aliases: [ 'bin', 'sourcebin', 'srcbin', 'src' ],
 	usage: `code <code>`,
 	async execute(client, message, args, cmd) {
-		if (!args.join(' ')) return message.reply('You must specify code to upload.');
+		if (!args.join(' ').startsWith('```')) return message.reply('You must specify code to upload.');
 
 		const originalCode = args.join(' ');
 		code = originalCode.substring(5, originalCode.length - 3);
