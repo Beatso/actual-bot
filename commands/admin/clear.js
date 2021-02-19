@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'clear',
 	description: 'Clears a listed amount of messages.',
-	aliaes: [ 'delete', 'purge' ],
+	aliaes: [ 'purge' ],
 	permissions: [ 'ADMINISTRATOR', 'MANAGE_MESSAGES' ],
 	usage: `clear <amount>`,
 	async execute(client, message, args, Discord, cmd) {

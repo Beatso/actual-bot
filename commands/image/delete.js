@@ -1,14 +1,22 @@
 const canvacord = require('canvacord');
 
 module.exports = {
-	name: 'trash',
-	description: 'The user is trash',
-	usage: 'trash [user]',
+	name: 'delete',
+	description: 'Yeet',
+	usage: 'deletet [user]',
 	async execute(client, message, args, Discord, cmd) {
 		const member = message.mentions.members.first() || message.member;
 		let avatar = member.user.displayAvatarURL({ dynamic: false, format: 'png' });
 
-		const animatedGif = await canvacord.Canvas.trash(avatar);
+		function dark() {
+			if (args[0] == 'true') {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		const animatedGif = await canvacord.Canvas.delete(avatar, dark());
 		message.channel.send(new Discord.MessageAttachment(animatedGif, `image.png`));
 	}
 };

@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { defualtPrefix } = require('../../config.json');
 const musicCMD = require('../misc/music');
 const musicCommands = {
@@ -7,8 +9,11 @@ const musicCommands = {
 	queue: [ '`queue`', '`que`', '`q`' ],
 	nowPlaying: [ '`playing`', '`now`', '`np`' ],
 	pause: [ '`puase`' ],
-	unpause: [ '`unpuase`' ]
+	unpause: [ '`unpuase`' ],
+	all: [ 'skip', 'leave', 'play', 'queue', 'playing', 'puase', 'unpuase' ]
 };
+
+const cmds = require('../../commandHandler');
 
 module.exports = {
 	name: 'help',
@@ -17,7 +22,7 @@ module.exports = {
 	execute(client, message, args, Discord, cmd) {
 		const { commands } = message.client;
 
-		if (!args.length) {
+		if (args[0] == 'all') {
 			let embed = new Discord.MessageEmbed();
 			let description = [];
 
@@ -27,6 +32,9 @@ module.exports = {
 				if (command.name != 'play') {
 					description.push(`\`${command.name}\``);
 				} else {
+					musicCommands.all.forEach((command) => {
+						description.push(`\`${command}\``);
+					});
 				}
 			});
 
@@ -34,10 +42,12 @@ module.exports = {
 			embed.setFooter(`Use ${defualtPrefix}help <command name> to get info on a specific command.`);
 			embed.setColor('#7289da');
 
+			console.log(cmds.categorys);
+
 			return message.channel.send(embed).catch((error) => {
 				console.error(error);
 			});
-		} else if (musicCMD.aliases.includes(args[0])) {
+		} else if (musicCommands.all.includes(args[0])) {
 			const name = args[0].toLowerCase();
 			const musicEmbed = new Discord.MessageEmbed()
 				.setTitle('Command Info')
@@ -81,16 +91,16 @@ module.exports = {
 				musicEmbed.addFields('Description', 'Puases the current song.');
 				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
 				// Unpuase
-			} else if (musicCommands.unpause.includes(name)) {
+			} else {
 				musicEmbed.addField('Name', '`' + 'unpuase' + '`');
-				musicEmbed.addField('Aliases', musicCommands.unpause);
-				musicEmbed.addFields('Description', 'Unpuases the current song.');
-				musicEmbed.addFields('Usage', `${defualtPrefix}${args[0]}`);
+				musicEmbed.addField('Aliases', '`' + musicCommands.unpause.join('`, `') + '`');
+				musicEmbed.addField('Description', 'Unpuases the current song.');
+				musicEmbed.addField('Usage', `${defualtPrefix}${args[0]}`);
 			}
 			message.channel.send(musicEmbed);
 		} else {
 			const name = args[0].toLowerCase();
-			const command = commands.get(cmd) || commands.find((a) => a.aliases && a.aliases.includes(cmd));
+			const command = commands.get(name) || commands.find((a) => a.aliases && a.aliases.includes(name));
 
 			if (!command) return message.reply("That's not a valid command!");
 
@@ -98,9 +108,9 @@ module.exports = {
 
 			responseEmbed.addField('Name', '`' + command.name + '`');
 			if (command.aliases) responseEmbed.addField('Aliases', '`' + command.aliases.join('`, `') + '`');
-			if (command.description) responseEmbed.addFields('Description', command.description);
-			if (command.usage) responseEmbed.addFields('Usage', `${defualtPrefix}${command.usage}`);
-			if (command.permissions) responseEmbed.addFields('Required Permissions', command.permissions);
+			if (command.description) responseEmbed.addField('Description', command.description);
+			if (command.usage) responseEmbed.addField('Usage', `${defualtPrefix}${command.usage}`);
+			if (command.permissions) responseEmbed.addField('Required Permissions', command.permissions);
 
 			message.channel.send(responseEmbed);
 		}

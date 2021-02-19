@@ -1,25 +1,25 @@
-const { dir } = require('console');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = (client, Discord) => {
-	cmdDirs = [];
+cmdDirs = [];
 
-	const getDirs = (dir) => {
-		const files = fs.readdirSync(path.join(__dirname, dir));
-		for (const file of files) {
-			const stat = fs.lstatSync(path.join(__dirname, dir, file));
-			if (stat.isDirectory()) {
-				cmdDirs.push(file);
-				// getDirs(path.join(__dirname, dir, file));
-			} else {
-				continue;
-			}
+const getDirs = (dir) => {
+	const files = fs.readdirSync(path.join(__dirname, dir));
+	for (const file of files) {
+		const stat = fs.lstatSync(path.join(__dirname, dir, file));
+		if (stat.isDirectory()) {
+			cmdDirs.push(file);
+			// getDirs(path.join(__dirname, dir, file));
+		} else {
+			continue;
 		}
-	};
+	}
+};
 
-	getDirs('commands');
-
+getDirs('commands');
+module.exports.categorys = cmdDirs;
+console.log(cmdDirs);
+module.exports = (client, Discord) => {
 	loadDir = (dirs) => {
 		const commandFiles = fs.readdirSync(`./commands/${dirs}/`).filter((file) => file.endsWith('.js'));
 
