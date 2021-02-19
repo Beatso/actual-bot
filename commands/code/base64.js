@@ -1,5 +1,3 @@
-const { text } = require('express');
-
 module.exports = {
 	name: 'base64',
 	description: 'Encodes and Decodes base64',

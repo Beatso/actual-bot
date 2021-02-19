@@ -26,7 +26,7 @@ module.exports = {
 				}
 			)
 			.then((src) => {
-				message.channel.send(`You code has been automagically uploaded to SourceBin: ${src.url}`);
+				message.channel.send(`You code has been automagically uploaded to SourceBin: <${src.url}>`);
 			})
 			.catch((e) => {
 				message.reply(`There was an error uploading your code.`);

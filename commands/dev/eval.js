@@ -3,6 +3,7 @@ module.exports = {
 	description: 'Evals code',
 	usage: `eval <code>`,
 	dev: true,
+	permissions: [],
 	async execute(client, message, args, Discord, cmd) {
 		if (!message.author.id == '511758610720751626') return message.reply('This command is only for the developer.');
 		if (!args[0]) return message.reply('You must specify code to eval.');
@@ -10,7 +11,11 @@ module.exports = {
 		if (args.join(' ') == 'process.exit()') {
 			return message.reply('Access Denied.');
 		}
-		evaled = await eval('(async () => {' + result + '})()');
-		message.channel.send(`\`\`\`js\n${evaled}\`\`\``);
+		try {
+			evaled = await eval(`(async () => {${result}})()`);
+			message.channel.send(`\`\`\`js\n${evaled}\`\`\``);
+		} catch (error) {
+			message.channel.send(`\`\`\`\n${error}\`\`\``);
+		}
 	}
 };
