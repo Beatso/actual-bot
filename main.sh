@@ -1,1 +1,1 @@
-python mcuser.py && node index.js
+node index.js

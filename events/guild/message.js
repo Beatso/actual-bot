@@ -59,6 +59,8 @@ module.exports = (Discord, client, message) => {
 	}
 
 	if (command.name) {
+		message.channel.startTyping();
 		command.execute(client, message, args, Discord, cmd);
+		message.channel.stopTyping();
 	}
 };
