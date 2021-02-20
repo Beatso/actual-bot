@@ -69,4 +69,4 @@ client.once('ready', () => {
 
 keepAlive();
 // Always Last
-client.login(process.env.TOKEN);
+client.login(process.env.BOTTOKEN);

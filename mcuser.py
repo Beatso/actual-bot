@@ -5,7 +5,6 @@ from base64 import b64decode
 from random import random
 from io import BytesIO
 from json import load
-# from dotenv import load_dotenv
 import discord
 
 ############################################################################################################################
@@ -423,4 +422,5 @@ async def mcuser(ctx, *, name = None):
 
 ############################################################################################################################
 
-client.run("NzkxNzAzMTAxMDIzMDYwMDE4.X-TA-A.n8DT3zBO-kG5fik16xSesjwV4BI")
+
+client.run("TOKEN_HERE")
