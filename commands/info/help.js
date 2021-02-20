@@ -22,7 +22,7 @@ module.exports = {
 	execute(client, message, args, Discord, cmd) {
 		const { commands } = message.client;
 
-		if (args[0] == 'all') {
+		if (args[0] == 'all' || !args.length) {
 			let embed = new Discord.MessageEmbed();
 			let description = [];
 
@@ -102,7 +102,7 @@ module.exports = {
 			const name = args[0].toLowerCase();
 			const command = commands.get(name) || commands.find((a) => a.aliases && a.aliases.includes(name));
 
-			if (!command) return message.reply("That's not a valid command!");
+			if (!command) return message.reply("That's not one of my commands.");
 
 			const responseEmbed = new Discord.MessageEmbed().setTitle('Command Info').setColor('#7289da');
 
