@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { defualtPrefix } = require('../../config.json');
-const musicCMD = require('../misc/music');
+const { defaultPrefix } = require('../../config.json');
+// const musicCMD = require('../misc/music');
 const musicCommands = {
 	play: [ '`p`', '`play`' ],
 	skip: [ '`skip`' ],
@@ -12,8 +12,6 @@ const musicCommands = {
 	unpause: [ '`unpuase`' ],
 	all: [ 'skip', 'leave', 'play', 'queue', 'playing', 'puase', 'unpuase' ]
 };
-
-const cmds = require('../../commandHandler');
 
 module.exports = {
 	name: 'help',
@@ -39,15 +37,14 @@ module.exports = {
 			});
 
 			embed.setDescription(description.join(', '));
-			embed.setFooter(`Use ${defualtPrefix}help <command name> to get info on a specific command.`);
+			embed.setFooter(`Use ${defaultPrefix}help <command name> to get info on a specific command.`);
 			embed.setColor('#7289da');
-
-			console.log(cmds.categorys);
 
 			return message.channel.send(embed).catch((error) => {
 				console.error(error);
 			});
-		} else if (musicCommands.all.includes(args[0])) {
+		} else {
+			/*else if (musicCommands.all.includes(args[0])) {
 			const name = args[0].toLowerCase();
 			const musicEmbed = new Discord.MessageEmbed()
 				.setTitle('Command Info')
@@ -98,8 +95,7 @@ module.exports = {
 				musicEmbed.addField('Usage', `${defualtPrefix}${args[0]}`);
 			}
 			message.channel.send(musicEmbed);
-		} else {
-			const name = args[0].toLowerCase();
+		}*/ const name = args[0].toLowerCase();
 			const command = commands.get(name) || commands.find((a) => a.aliases && a.aliases.includes(name));
 
 			if (!command) return message.reply("That's not one of my commands.");
