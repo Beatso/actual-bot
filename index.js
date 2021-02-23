@@ -93,7 +93,7 @@ client.once('ready', () => {
 
 	console.log('actual bot is online');
 
-	console.log('╠══════════════════════════════════ [  Login  ] ═════════════════════════════════════╣');
+	console.log('╔══════════════════════════════════ [  Login  ] ═════════════════════════════════════╗');
 	console.log(`║ > Logged in as ${client.user.tag}!                                                    ║`);
 	console.log(`║ > Current ID ${client.user.id}!                                                   ║`);
 	console.log('╠══════════════════════════════════ [  Amount  ] ════════════════════════════════════╣');
