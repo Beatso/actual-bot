@@ -26,7 +26,7 @@
 		"dotenv": "^8.2.0",
 		"express": "^4.17.1",
 		"ffmpeg-static": "^4.2.7",
-		"got": "^11.8.1",
+		"got": "^11.8.2",
 		"images-scraper": "^6.0.1",
 		"merge-images": "^2.0.0",
 		"minecraft-server-util": "^3.4.3",
