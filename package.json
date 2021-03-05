@@ -20,7 +20,7 @@
 	"dependencies": {
 		"@discordjs/opus": "^0.4.0",
 		"canvacord": "^5.1.0",
-		"canvas": "^2.6.1",
+		"canvas": "^2.7.0",
 		"discord-utils.js": "^1.0.7",
 		"discord.js": "github:discordjs/discord.js",
 		"dotenv": "^8.2.0",
