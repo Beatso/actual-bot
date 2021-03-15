@@ -1,4 +1,4 @@
-const got = require('got');
+const fetch = require('node-fetch');
 
 module.exports = {
 	name: 'meme',
@@ -7,8 +7,8 @@ module.exports = {
 	execute(client, message, args, Discord, cmd) {
 		const embed = new Discord.MessageEmbed();
 
-		got('https://www.reddit.com/r/dankmemes/random/.json').then((response) => {
-			let content = JSON.parse(response.body);
+		fetch('https://www.reddit.com/r/dankmemes/random/.json').then((res) => res.json()).then((body) => {
+			let content = body;
 			let permalink = content[0].data.children[0].data.permalink;
 			let memeUrl = `https://reddit.com${permalink}`;
 			let memeImage = content[0].data.children[0].data.url;

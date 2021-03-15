@@ -7,7 +7,7 @@ const config = require('./config.json');
 const path = require('path');
 const db = require('quick.db');
 
-module.exports.client = client;
+exports.client = client;
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
@@ -45,6 +45,7 @@ loadDir = (dirs) => {
 
 // cmd dirs
 cmdDirs.forEach((d) => loadDir(d));
+exports.categories = cmdDirs;
 
 client.on('message', async (message) => {
 	var prefix =
