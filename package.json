@@ -19,7 +19,7 @@
 	"homepage": "https://github.com/Chromus-dev/actual-bot#readme",
 	"dependencies": {
 		"canvacord": "^5.1.0",
-		"canvas": "^2.6.1",
+		"canvas": "^2.7.0",
 		"discord-utils.js": "^1.0.9",
 		"discord.js": "github:discordjs/discord.js",
 		"dotenv": "^8.2.0",
