@@ -3,9 +3,9 @@ require('dotenv').config();
 const fs = require('fs');
 const client = new Discord.Client({ intents: Discord.Intents.ALL });
 const keepAlive = require('./server');
-const config = require('./config.json');
+const config = require('./config.js');
 const path = require('path');
-const db = require('quick.db');
+// const db = require('quick.db');
 
 exports.client = client;
 
@@ -48,21 +48,12 @@ cmdDirs.forEach((d) => loadDir(d));
 exports.categories = cmdDirs;
 
 client.on('message', async (message) => {
-	var prefix =
-		db.fetch(`prefix_${message.guild.id}`) == null ? config.defaultPrefix : db.fetch(`prefix_${message.guild.id}`);
-
 	if (message.content.startsWith(`<@${client.user.id}>`) || message.content.startsWith(`<@!${client.user.id}>`)) {
 		const args = message.content.slice(prefix.length).split(/ +/);
 		const cmd = args.shift().toLowerCase();
 		client.commands.get('help').execute(client, message, args, Discord, cmd);
 	} else {
-		var prefix;
-		let prefixes = db.fetch(`prefix_${message.guild.id}`);
-		if (prefixes == null) {
-			prefix = config.defaultPrefix;
-		} else {
-			prefix = prefixes;
-		}
+		var prefix = config.prefix;
 
 		if (!message.content.startsWith(prefix) || message.author.bot) return;
 

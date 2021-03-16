@@ -1,4 +1,4 @@
-const { memberRole, mutedRole } = require('../../config.json');
+const { memberRole, mutedRole } = require('../../config.js');
 
 module.exports = {
 	name: 'unmute',

@@ -1,4 +1,4 @@
-const config = require('../../config.json');
+const config = require('../../config.js');
 
 module.exports = {
 	name: 'suggest',
@@ -8,11 +8,11 @@ module.exports = {
 		if (message.guild.id == '793250365477879839') {
 			if (!args[0]) return message.reply('You must provide a suggsetion.');
 
-			const channel = message.guild.channels.cache.find((c) => c.id === config.suggsetChannel);
+			const channel = message.guild.channels.cache.find((c) => c.id === config.helpServer.suggestChannel);
 
 			let idea = args.join(' ');
 			const embed = new Discord.MessageEmbed()
-				.setColor(config.color)
+				.setColor(config.colors.defualt)
 				.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
 				.setDescription(idea);
 			channel
