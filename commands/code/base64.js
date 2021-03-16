@@ -38,8 +38,6 @@ module.exports = {
 			} else {
 				let res = decode(text);
 				message.channel.send(res.base64);
-				console.log(res.buff);
-				console.log(res.originalData);
 			}
 		} catch (err) {
 			message.reply(`There was an error ${args[0].substring(0, args[0].length - 1)}ing that.`);
