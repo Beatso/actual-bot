@@ -6,7 +6,10 @@ const keepAlive = require('./server');
 const config = require('./config.js');
 const path = require('path');
 const codeError = require('./functions/codeError');
+const sendError = require('./functions/sendError');
+const miscError = require('./functions/miscError');
 const db = require('quick.db');
+const { default: didYouMean, ReturnTypeEnums, ThresholdTypeEnums } = require('didyoumean2');
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
@@ -71,27 +74,44 @@ client.on('message', async (message) => {
 		const cmd = args.shift().toLowerCase();
 		const command = client.commands.get(cmd) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
 
-		if (command.permissions) {
-			let invalidPerms = [];
-			for (const perm of command.permissions) {
-				if (!config.validPermissions.includes(perm)) return console.log(`Invalid Permission: ${perm}`);
-
-				if (!message.member.permissions.has(perm)) {
-					invalidPerms.push(perm);
-				}
-			}
-			if (invalidPerms.length)
-				return message.reply(`You do not have the required permissions: \`${invalidPerms.join(', ')}\``);
-		}
-
 		try {
-			if (command.name) {
-				message.channel.startTyping();
-				await command.execute(client, message, args, Discord, cmd);
-				message.channel.stopTyping();
+			if (command.permissions) {
+				let invalidPerms = [];
+				for (const perm of command.permissions) {
+					if (!config.validPermissions.includes(perm)) return console.log(`Invalid Permission: ${perm}`);
+
+					if (!message.member.permissions.has(perm)) {
+						invalidPerms.push(perm);
+					}
+				}
+				if (invalidPerms.length)
+					return message.reply(`You do not have the required permissions: \`${invalidPerms.join(', ')}\``);
+			}
+
+			try {
+				if (command.name) {
+					message.channel.startTyping();
+					await command.execute(client, message, args, Discord, cmd);
+					message.channel.stopTyping();
+				}
+			} catch (error) {
+				return codeError(message, error);
 			}
 		} catch (error) {
-			return codeError(message, error);
+			const args = message.content.slice(config.prefix.length).split(/ +/);
+			const cmd = args.shift().toLowerCase();
+
+			let commands = [];
+			client.commands.map((command) => commands.push(command.name));
+			let thinkCommand = didYouMean(cmd, commands);
+
+			if (thinkCommand == null) return client.commands.get('help').execute(client, message, args, Discord, cmd);
+
+			miscError(
+				message,
+				`The command \`${command}\` doesn't exist.\n\nDid you mean \`${thinkCommand}\`?`,
+				'Invalid Command'
+			);
 		}
 	}
 });
