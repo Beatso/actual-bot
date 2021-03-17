@@ -4,7 +4,7 @@
 	"description": "An actual discord bot",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "node --trace-warnings index.js",
 		"start": "nodemon"
 	},
 	"repository": {

@@ -96,8 +96,7 @@ module.exports = {
 					{ name: 'Roles', value: `${roleCount}`, inline: true },
 					{
 						name: 'Server Owner',
-						value: `[${message.guild.owner.user.tag}](https://discord.com/users/${message.guild.owner.user
-							.id} "https://discord.com/users/${message.guild.owner.user.id}")`,
+						value: message.guild.owner.user.tag,
 						inline: true
 					},
 					{ name: 'Server ID', value: `${message.guild.id}`, inline: true }

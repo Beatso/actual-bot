@@ -5,9 +5,8 @@ const client = new Discord.Client({ intents: Discord.Intents.ALL });
 const keepAlive = require('./server');
 const config = require('./config.js');
 const path = require('path');
-// const db = require('quick.db');
-
-exports.client = client;
+const codeError = require('./functions/codeError');
+const db = require('quick.db');
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
@@ -29,6 +28,18 @@ const getDirs = (dir) => {
 
 getDirs('commands');
 
+client.once('ready', () => {
+	if (client.user.id == '791703101023060018') db.add(`restarts`, 1);
+
+	// console.log(db.get(`restarts`));
+});
+
+module.exports = {
+	client: client,
+	restarts: db.get(`restarts`),
+	categories: cmdDirs
+};
+
 loadDir = (dirs) => {
 	const commandFiles = fs.readdirSync(`./commands/${dirs}/`).filter((file) => file.endsWith('.js'));
 
@@ -45,11 +56,10 @@ loadDir = (dirs) => {
 
 // cmd dirs
 cmdDirs.forEach((d) => loadDir(d));
-exports.categories = cmdDirs;
 
 client.on('message', async (message) => {
 	if (message.content.startsWith(`<@${client.user.id}>`) || message.content.startsWith(`<@!${client.user.id}>`)) {
-		const args = message.content.slice(prefix.length).split(/ +/);
+		const args = message.content.slice(config.prefix.length).split(/ +/);
 		const cmd = args.shift().toLowerCase();
 		client.commands.get('help').execute(client, message, args, Discord, cmd);
 	} else {
@@ -74,8 +84,14 @@ client.on('message', async (message) => {
 				return message.reply(`You do not have the required permissions: \`${invalidPerms.join(', ')}\``);
 		}
 
-		if (command.name) {
-			command.execute(client, message, args, Discord, cmd);
+		try {
+			if (command.name) {
+				message.channel.startTyping();
+				await command.execute(client, message, args, Discord, cmd);
+				message.channel.stopTyping();
+			}
+		} catch (error) {
+			return codeError(message, error);
 		}
 	}
 });
@@ -135,4 +151,4 @@ client.once('ready', () => {
 
 keepAlive();
 // Always Last
-client.login(process.env.BOTTOKEN);
+client.login(process.env.TESTBOTTOKEN);
