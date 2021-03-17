@@ -151,4 +151,4 @@ client.once('ready', () => {
 
 keepAlive();
 // Always Last
-client.login(process.env.TESTBOTTOKEN);
+client.login(process.env.BOTTOKEN);
