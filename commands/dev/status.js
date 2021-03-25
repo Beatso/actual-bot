@@ -1,5 +1,5 @@
 const fs = require('fs');
-const urlToConfig = '../../config.js';
+const urlToConfig = '@config';
 
 module.exports = {
 	name: 'status',

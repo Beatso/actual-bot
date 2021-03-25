@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
-const sendError = require('../../functions/sendError');
-const config = require('../../config.js');
+const sendError = require('@functions/sendError');
+const config = require('@config');
 
 module.exports = {
 	name: 'cem',

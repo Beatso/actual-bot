@@ -1,4 +1,4 @@
-const config = require('../../config.js');
+const config = require('@config');
 const { restarts } = require('../../index.js');
 const { name } = require('../../package.json');
 const path = require('path');

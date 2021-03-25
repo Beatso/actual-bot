@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { prefix } = require('../../config.js');
+const { prefix } = require('@config');
 // const musicCMD = require('../misc/music');
 const musicCommands = {
 	play: [ '`p`', '`play`' ],

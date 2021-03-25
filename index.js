@@ -1,13 +1,14 @@
+require('module-alias/register');
 const Discord = require('discord.js');
 require('dotenv').config();
 const fs = require('fs');
 const client = new Discord.Client({ intents: Discord.Intents.ALL });
 const keepAlive = require('./server');
-const config = require('./config.js');
+const config = require('@config');
 const path = require('path');
-const codeError = require('./functions/codeError');
-const sendError = require('./functions/sendError');
-const miscError = require('./functions/miscError');
+const codeError = require('@functions/codeError');
+const sendError = require('@functions/sendError');
+const miscError = require('@functions/miscError');
 const db = require('quick.db');
 const { default: didYouMean, ReturnTypeEnums, ThresholdTypeEnums } = require('didyoumean2');
 

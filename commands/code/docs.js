@@ -1,5 +1,4 @@
-const config = require('../../config.js');
-const sendError = require('../../functions/sendError');
+const sendError = require('@functions/sendError');
 const fetch = require('node-fetch');
 
 module.exports = {

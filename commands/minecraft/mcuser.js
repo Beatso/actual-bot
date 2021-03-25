@@ -1,5 +1,5 @@
-const config = require('../../config.js');
-const sendError = require('../../functions/sendError');
+const config = require('@config');
+const sendError = require('@functions/sendError');
 const fetch = require('node-fetch');
 
 module.exports = {
@@ -30,15 +30,17 @@ module.exports = {
 		r.forEach((n) => {
 			names.push(n.name.replace(/_/g, '\\_'));
 		});
+		names.pop();
 
-		var optifineCape;
 		var mojangCape;
 		var cape;
-		try {
-			await fetch(`http://s.optifine.net/capes/${name}.png`);
-		} catch (e) {
-			optifineCape = false;
-		}
+
+		// await fetch(`http://s.optifine.net/capes/${name}.png`).then((res) => {
+		//  	return res.ok ? true : false;
+		// }); // not cape server
+		const optifineCape = await fetch(`http://107.182.233.85/capes/${name}.png`).then((res) => {
+			return res.ok ? true : false;
+		}); // cape server
 
 		var skinTexture = await fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
 			.then((res) => res.json())
@@ -49,9 +51,9 @@ module.exports = {
 				return skin;
 			});
 
-		if (mojangCape) cape = 'Minecraft Cape';
-		if (optifineCape) cape = 'OptiFine Cape';
-		if (mojangCape && optifineCape) cape = 'Minecraft and OptiFine Cape';
+		if (mojangCape && !optifineCape) cape = 'Minecraft Cape';
+		if (optifineCape && !mojangCape) cape = '[OptiFine](https://optifine.net) Cape';
+		if (mojangCape && optifineCape) cape = 'Minecraft and [OptiFine](https://optifine.net) Cape';
 		if (!mojangCape && !optifineCape) cape = 'None';
 
 		var embed = new Discord.MessageEmbed()

@@ -1,4 +1,4 @@
-const colors = require('./config/colors');
+const colors = require('./colors');
 
 const validPermissions = [
 	'CREATE_INSTANT_INVITE',
