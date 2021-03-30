@@ -35,7 +35,7 @@
 		"pet-pet-gif": "^1.0.3",
 		"quick.db": "^7.1.3",
 		"request": "^2.88.2",
-		"sharp": "^0.27.2",
+		"sharp": "^0.28.0",
 		"sourcebin_js": "0.0.3-ignore",
 		"tinyscripts": "^1.0.1",
 		"weather-js": "^2.0.0"
