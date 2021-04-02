@@ -57,7 +57,7 @@ module.exports = {
 		if (!mojangCape && !optifineCape) cape = 'None';
 
 		var embed = new Discord.MessageEmbed()
-			.setColor(config.colors.defualt)
+			.setColor(config.colors.default)
 			.setURL(`https://mine.ly/${name}`)
 			.setTitle(name)
 			.setImage(`https://minecraftSkinAPI.xlchannel6.repl.co/${name}`)

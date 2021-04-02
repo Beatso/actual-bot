@@ -19,7 +19,7 @@ module.exports = {
 
 		if (cemInfo.entities.supported[args.join('_')]) {
 			let embed = new Discord.MessageEmbed()
-				.setColor(config.colors.defualt)
+				.setColor(config.colors.default)
 				.setTitle(cemInfo.entities.supported[args.join('_')].display_name);
 			let bones = [];
 			cemInfo.entities.supported[args.join('_')].bones.forEach((bone) => {

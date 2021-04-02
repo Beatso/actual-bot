@@ -17,7 +17,7 @@ module.exports = {
 		const { commands } = message.client;
 
 		var embed = new Discord.MessageEmbed()
-			.setColor(config.colors.defualt)
+			.setColor(config.colors.default)
 			.setTitle(client.user.username)
 			.setThumbnail(client.user.displayAvatarURL({ dynamic: true, format: 'png' }))
 			.addFields(
